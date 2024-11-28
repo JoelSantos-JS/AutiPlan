@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1029766823787",
+    "project_id": "autiplan-7bbb8",
+    "storage_bucket": "autiplan-7bbb8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029766823787:android:e2a3259aa6790acd60562e",
+        "android_client_info": {
+          "package_name": "com.jjtech.autiplan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4DSCsGOVaoCl8VDJ909NPV0GyG2hU4qk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

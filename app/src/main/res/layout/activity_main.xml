@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- RecyclerView ocupando a maior parte da tela -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_alignParentTop="true"/>
+
+    <!-- Barra de navegação na parte inferior -->
+    <LinearLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="80dp"
+        android:weightSum="4">
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:id="@+id/homeImage"
+            android:contentDescription="Home"
+            android:padding="8dp"
+            android:src="@drawable/casa" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:id="@+id/calendarImage"
+            android:src="@drawable/calendario"
+            android:padding="8dp"
+            android:contentDescription="Calendar"/>
+
+        <!-- Ícone de Home -->
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:id="@+id/rewardsImage"
+            android:src="@drawable/rewards"
+            android:padding="8dp"
+
+        android:contentDescription="Rewards"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:id="@+id/profileImage"
+            android:src="@drawable/perfil"
+            android:padding="8dp"
+
+        android:contentDescription="Perfil"/>
+
+        <!-- Adicione outros ícones aqui -->
+    </LinearLayout>
+
+</RelativeLayout>

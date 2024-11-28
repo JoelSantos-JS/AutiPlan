@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/icon_moon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_moon"
+        android:contentDescription="Ícone da Lua"
+        android:layout_marginTop="58sp"
+        android:layout_marginRight="15sp"
+        android:layout_gravity="end"
+        android:clickable="true"
+
+    />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginTitle"
+        android:text="Sign in to AutiPlan"
+        android:textSize="40sp"
+        android:layout_marginTop="85sp"
+        android:gravity="center"
+        android:paddingBottom="25dp"
+        android:textColor="@color/black"
+
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/labelUsername"
+        android:text="Username"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="45dp"
+
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginUsername"
+        android:hint="Username"
+        android:minHeight="48dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/labelPassword"
+        android:text="Password"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="45dp"
+
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginPassword"
+        android:hint="Password"
+        android:layout_marginBottom="25dp"
+        android:minHeight="48dp"
+        />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginButton"
+        android:text="Sign in"
+        android:backgroundTint="@color/teal_700"
+
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/registerEdit"
+        android:text="Registre sua conta!"
+        android:textSize="19sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10sp"
+        />
+ </LinearLayout>
