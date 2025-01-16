@@ -1,19 +1,30 @@
 package com.jjtech.autiplan;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
-
+import android.widget.TimePicker;
+import java.util.Calendar;
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView profile;
     private ImageView home;
     private ImageView rewards;
-
+    private List<Item> itemList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        List<Item> itemList = new ArrayList<>();
+        itemList = new ArrayList<>();
         itemList.add(new Item("Café da manhã", R.drawable.cafe));
         itemList.add(new Item("Escovar os dentes", R.drawable.dentes));
         itemList.add(new Item("Ir para escola", R.drawable.escola));
@@ -79,5 +90,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Calendar.class);
+                startActivity(intent);
+                finish();
+                return;
+            }
+        });
+
+
+
     }
+
+
+
 }

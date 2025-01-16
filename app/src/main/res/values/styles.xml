@@ -1,0 +1,18 @@
+<resources>
+    <!-- Estilo para o CalendarView -->
+    <style name="CustomCalendarView" parent="android:Widget.CalendarView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:weekDayTextAppearance">@style/WeekDayTextStyle</item>
+        <item name="android:dateTextAppearance">@style/DateTextStyle</item>
+    </style>
+
+    <!-- Estilo para os dias da semana -->
+    <style name="WeekDayTextStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Estilo para os dias do mês -->
+    <style name="DateTextStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">18sp</item>
+    </style>
+</resources>

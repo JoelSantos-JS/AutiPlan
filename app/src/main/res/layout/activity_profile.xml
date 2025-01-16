@@ -4,34 +4,33 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
+        <!-- Botão de voltar -->
         <ImageView
+            android:id="@+id/setaEsquerda"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/esquerda"
-            android:id="@+id/setaEsquerda"
             android:layout_gravity="start"
-            android:layout_marginTop="45sp"
-            android:layout_marginBottom="5sp"
-            />
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="5dp" />
+
         <!-- Título Principal -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50sp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="16dp"
             android:text="Settings"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="30sp"
-            android:layout_marginBottom="16dp" />
+            android:textSize="30sp" />
 
-        <!-- General Section -->
+        <!-- Seção Geral -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +43,6 @@
                 android:text="General"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-
                 android:textSize="25sp"
                 android:paddingBottom="8dp" />
 
@@ -60,21 +58,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Color scheme"
-                    android:textSize="19sp"
-                    />
+                    android:textSize="19sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Blue"
-                    android:textSize="19sp"
-
-
-                    />
+                    android:textSize="19sp" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Reading Section -->
+        <!-- Seção de Leitura -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,7 +81,6 @@
                 android:text="Reading"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-
                 android:textSize="25sp"
                 android:paddingBottom="8dp" />
 
@@ -102,15 +95,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="19sp"
-
-                    android:text="Font size" />
+                    android:text="Font size"
+                    android:textSize="19sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="19sp"
-                    android:text="Medium" />
+                    android:text="Medium"
+                    android:textSize="19sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -124,25 +116,23 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="19sp"
-
-                    android:text="Highlighter color" />
+                    android:text="Highlighter color"
+                    android:textSize="19sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="19sp"
-
-                    android:text="Yellow" />
+                    android:text="Yellow"
+                    android:textSize="19sp" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- App Section -->
+        <!-- Seção do Aplicativo -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="24dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -150,7 +140,6 @@
                 android:text="App"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-
                 android:textSize="25sp"
                 android:paddingBottom="8dp" />
 
@@ -165,8 +154,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="19sp"
-                    android:text="Dark mode" />
+                    android:text="Dark mode"
+                    android:textSize="19sp" />
 
                 <Switch
                     android:id="@+id/dark_mode_switch"
@@ -178,8 +167,15 @@
                 android:id="@+id/restore_purchase_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Restore purchase"
-                android:layout_marginTop="240dp" />
+                android:layout_marginTop="200dp"
+                android:text="Restore purchase" />
+
+            <Button
+                android:id="@+id/logout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/teal_200"
+                android:text="Logout" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

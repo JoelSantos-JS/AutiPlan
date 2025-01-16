@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -14,54 +14,38 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.auth.FirebaseAuth;
+public class Calendar extends AppCompatActivity {
 
-public class Profile extends AppCompatActivity {
 
+    private CalendarView calendarview;
     private ImageView seta;
-    private Button logout;
-    private FirebaseAuth firebaseAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_calendar);
 
-
-
-        firebaseAuth = FirebaseAuth.getInstance();
-
-
-
-
+        calendarview = findViewById(R.id.calendarView);
         seta = findViewById(R.id.setaEsquerda);
-        logout = findViewById(R.id.logout_button);
+
+
+        calendarview.setOnDateChangeListener((view, year , month, dayOfMonth) -> {
+            String selectDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+            Toast.makeText(Calendar.this, "Data selecionada: " + selectDate, Toast.LENGTH_SHORT).show();
+        });
 
 
         seta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Profile.this, MainActivity.class);
+                Intent intent = new Intent(Calendar.this, MainActivity.class);
                 startActivity(intent);
                 finish();
                 return;
 
-            }
-        });
-
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firebaseAuth.signOut();;
-                Toast.makeText(Profile.this, "Deslogado com sucesso" , Toast.LENGTH_SHORT).show();;
-                startActivity(new Intent(Profile.this, LoginActivity.class));
-                finish();
             }
         });
 
