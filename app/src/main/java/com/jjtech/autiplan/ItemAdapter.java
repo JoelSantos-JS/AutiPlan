@@ -6,6 +6,7 @@ import android.provider.CalendarContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,75 +17,57 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
-
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private Context context;
-    private List<Item> itemList; // Lista de itens (modelo)
+    private List<Item> items;
 
-    public ItemAdapter(Context context, List<Item> itemList) {
+    public ItemAdapter(Context context, List<Item> items) {
         this.context = context;
-        this.itemList = itemList;
-    }
-
-    @NonNull
-    @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Inflar o layout do item (ex: grid_item.xml)
-        View view = LayoutInflater.from(context).inflate(R.layout.item_layout, parent, false);
-        return new ItemViewHolder(view);
+        this.items = items;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        // Configurar os dados do item
-        Item item = itemList.get(position);
-        holder.imageView.setImageResource(item.getImageResId());
-        holder.textView.setText(item.getName());
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_task, parent, false);
+        return new ViewHolder(view);
+    }
 
-        // Clique no item
-        holder.itemView.setOnClickListener(v ->
-                addTaskToCalendar(item.getName())
-        );
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Item item = items.get(position);
+        holder.titleText.setText(item.getTitle());
+        holder.iconImage.setImageResource(item.getImageResource());
+
+        // Atualizar estado de conclusão
+        holder.completionCheck.setChecked(item.isCompleted());
+
+        holder.itemView.setOnClickListener(v -> {
+            item.setCompleted(!item.isCompleted());
+            holder.completionCheck.setChecked(item.isCompleted());
+            // Aqui você pode adicionar animação ou feedback
+        });
     }
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return items.size();
     }
 
-    public static class ItemViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView textView;
+    public void updateItems(List<Item> newItems) {
+        this.items = newItems;
+        notifyDataSetChanged();
+    }
 
-        public ItemViewHolder(@NonNull View itemView) {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView titleText;
+        ImageView iconImage;
+        CheckBox completionCheck;
+
+        ViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.item_image);
-            textView = itemView.findViewById(R.id.item_text);
+            titleText = itemView.findViewById(R.id.task_title);
+            iconImage = itemView.findViewById(R.id.task_icon);
+            completionCheck = itemView.findViewById(R.id.task_check);
         }
-    }
-
-
-    private  void addTaskToCalendar(String taskName ) {
-        Calendar calendar = Calendar.getInstance();
-        long startTime = calendar.getTimeInMillis();
-        calendar.add(Calendar.HOUR , 1);
-        long endTime = calendar.getTimeInMillis();
-
-        ContentValues values = new ContentValues();
-        values.put(CalendarContract.Events.CALENDAR_ID, 1); // Substitua pelo ID do calendário correto
-        values.put(CalendarContract.Events.TITLE, taskName);
-        values.put(CalendarContract.Events.DESCRIPTION, "Atividade adicionada pelo app");
-        values.put(CalendarContract.Events.DTSTART, startTime);
-        values.put(CalendarContract.Events.DTEND, endTime);
-        values.put(CalendarContract.Events.EVENT_TIMEZONE, "UTC");
-
-        try {
-            context.getContentResolver().insert(CalendarContract.Events.CONTENT_URI, values);
-            Toast.makeText(context, "Tarefa '" + taskName + "' adicionada ao calendário!", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(context, "Erro ao adicionar tarefa ao calendário!", Toast.LENGTH_SHORT).show();
-        }
-
     }
 }

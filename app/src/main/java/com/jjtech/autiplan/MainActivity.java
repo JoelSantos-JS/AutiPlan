@@ -1,109 +1,150 @@
 package com.jjtech.autiplan;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.media.Image;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TimePicker;
-import java.util.Calendar;
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.gms.tasks.Task;
-
+import androidx.appcompat.widget.Toolbar;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private ItemAdapter adapter;
+    private Map<String, List<Item>> periodTasks;
+    private String currentPeriod = "morning";
 
-
-
-    private ImageView calendar;
-    private ImageView profile;
-    private ImageView home;
-    private ImageView rewards;
-    private List<Item> itemList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        // Configurar a Toolbar
+        setupToolbar();
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        // Inicializar o RecyclerView
+        setupRecyclerView();
 
-        itemList = new ArrayList<>();
-        itemList.add(new Item("Café da manhã", R.drawable.cafe));
-        itemList.add(new Item("Escovar os dentes", R.drawable.dentes));
-        itemList.add(new Item("Ir para escola", R.drawable.escola));
-        itemList.add(new Item("Tomar Banho", R.drawable.chuveiro));
-        itemList.add(new Item("Jantar", R.drawable.janta));
-        itemList.add(new Item("Lanche", R.drawable.lanche));
-        itemList.add(new Item("Dever de casa", R.drawable.atividade));
-        itemList.add(new Item( "Atividades", R.drawable.atividades));
+        // Inicializar dados antes de configurar os chips
+        initializeData();
 
+        // Configurar os chips de período
+        setupPeriodChips();
 
-
-
-
-
-        // Adicione mais itens conforme necessário
-
-        // Configurar o adaptador
-        ItemAdapter adapter = new ItemAdapter(this, itemList);
-        recyclerView.setAdapter(adapter);
-
-
-
-        calendar = findViewById(R.id.calendarImage);
-        rewards = findViewById(R.id.rewardsImage);
-        home = findViewById(R.id.homeImage);
-        profile = findViewById(R.id.profileImage);
-
-
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Profile.class);
-                startActivity(intent);
-                finish();
-                return;
-            }
-        });
-
-        calendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Calendar.class);
-                startActivity(intent);
-                finish();
-                return;
-            }
-        });
-
-
-
+        // Configurar navegação inferior
+        setupBottomNavigation();
     }
 
 
+    private void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        ImageView menuIcon = findViewById(R.id.menuIcon);
+        ImageView notificationIcon = findViewById(R.id.notificationIcon);
+        ImageView settingsIcon = findViewById(R.id.settingsIcon);
+
+        menuIcon.setOnClickListener(v -> {
+            // Implementar menu lateral aqui
+        });
+
+        notificationIcon.setOnClickListener(v -> {
+            // Implementar tela de notificações aqui
+        });
+
+        settingsIcon.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Profile.class);
+            startActivity(intent);
+            finish();
+            return;
+        });
+    }
+
+    private void setupRecyclerView() {
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1)); // Mudado para lista única
+        adapter = new ItemAdapter(this, new ArrayList<>());
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void setupPeriodChips() {
+        ChipGroup chipGroup = findViewById(R.id.timeChipGroup);
+
+        Map<Integer, String> periodMap = new HashMap<>();
+        periodMap.put(R.id.morningChip, "morning");
+        periodMap.put(R.id.afternoonChip, "afternoon");
+        periodMap.put(R.id.eveningChip, "evening");
+
+        chipGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            String period = periodMap.get(checkedId);
+            if (period != null) {
+                updateTasksList(period);
+            }
+        });
+
+        // Selecionar chip da manhã por padrão
+        chipGroup.check(R.id.morningChip);
+    }
+
+    private void initializeData() {
+        periodTasks = new HashMap<>();
+
+        // Tarefas da manhã
+        List<Item> morningTasks = new ArrayList<>();
+        morningTasks.add(new Item("Café da manhã", R.drawable.cafe));
+        morningTasks.add(new Item("Escovar os dentes", R.drawable.dentes));
+        morningTasks.add(new Item("Ir para escola", R.drawable.escola));
+        periodTasks.put("morning", morningTasks);
+
+        // Tarefas da tarde
+        List<Item> afternoonTasks = new ArrayList<>();
+        afternoonTasks.add(new Item("Almoço", R.drawable.janta));
+        afternoonTasks.add(new Item("Atividades", R.drawable.atividades));
+        afternoonTasks.add(new Item("Lanche", R.drawable.lanche));
+        periodTasks.put("afternoon", afternoonTasks);
+
+        // Tarefas da noite
+        List<Item> eveningTasks = new ArrayList<>();
+        eveningTasks.add(new Item("Jantar", R.drawable.janta));
+        eveningTasks.add(new Item("Tomar Banho", R.drawable.chuveiro));
+        eveningTasks.add(new Item("Dever de casa", R.drawable.atividade));
+        periodTasks.put("evening", eveningTasks);
+
+        // Mostrar tarefas da manhã inicialmente
+        updateTasksList("morning");
+    }
+
+    private void updateTasksList(String period) {
+        currentPeriod = period;
+        List<Item> tasks = periodTasks.get(period);
+        adapter.updateItems(tasks);
+    }
+
+    private void setupBottomNavigation() {
+        View homeNav = findViewById(R.id.nav_home);
+        View rewardsNav = findViewById(R.id.nav_rewards);
+        View settingsNav = findViewById(R.id.nav_settings);
+
+        homeNav.setOnClickListener(v -> {
+            // Já estamos na tela inicial
+        });
+
+        rewardsNav.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RewardsActivity.class);
+            startActivity(intent);
+        });
+
+        settingsNav.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Profile.class);
+            startActivity(intent);
+        });
+    }
 }
